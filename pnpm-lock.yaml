@@ -14,7 +14,7 @@ importers:
 
   packages/oras-cli:
     dependencies:
-      '@oras/client':
+      '@dfatwork-pkgs/oras-client':
         specifier: workspace:*
         version: link:../oras-client
       chalk:

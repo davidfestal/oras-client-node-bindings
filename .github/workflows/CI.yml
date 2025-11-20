@@ -58,10 +58,8 @@ jobs:
         with:
           node-version: 20
       
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable Corepack
+        run: corepack enable
       
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -105,10 +103,8 @@ jobs:
         with:
           node-version: 20
       
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable Corepack
+        run: corepack enable
       
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -142,10 +138,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable Corepack
+        run: corepack enable
       
       - name: Download all artifacts
         uses: actions/download-artifact@v4
