@@ -12,6 +12,7 @@
     "lint": "echo 'Linting not configured yet'"
   },
   "devDependencies": {
+    "shx": "^0.4.0",
     "typescript": "^5.0.0"
   },
   "engines": {
