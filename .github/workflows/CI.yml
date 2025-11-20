@@ -161,11 +161,11 @@ jobs:
         with:
           path: packages/oras-client/artifacts
       
-      - name: Move artifacts
-        run: pnpm --filter @dfatwork-pkgs/oras-client artifacts
-      
       - name: Install dependencies
         run: pnpm install
+        
+      - name: Move artifacts
+        run: pnpm --filter @dfatwork-pkgs/oras-client artifacts
       
       - name: Build TypeScript
         run: pnpm build:ts --filter @dfatwork-pkgs/oras-client
