@@ -32,7 +32,7 @@ jobs:
           # Windows x64 - covers most Windows users
           - host: windows-latest
             target: x86_64-pc-windows-msvc
-            build: pnpm --filter @dfatwork-pkgs/oras-client build
+            build: pnpm --filter '@dfatwork-pkgs/oras-client' build
           
           # Linux x64 (glibc) - covers most Linux distros (Ubuntu, Debian, Fedora, etc.)
           - host: ubuntu-latest
@@ -89,7 +89,7 @@ jobs:
         if: matrix.settings.host == 'windows-latest'
         run: ${{ matrix.settings.build }}
         shell: 'C:\Program Files\Git\bin\bash.exe -lc'
-        working-directory: packages/oras-client
+        working-directory: packages\\oras-client
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
