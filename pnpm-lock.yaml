@@ -33,6 +33,9 @@ importers:
 
   packages/oras-client:
     devDependencies:
+      '@jest/globals':
+        specifier: ^29.7.0
+        version: 29.7.0
       '@napi-rs/cli':
         specifier: ^2.18.0
         version: 2.18.4
