@@ -4,6 +4,7 @@
 
 import { Readable } from 'stream';
 import * as zlib from 'zlib';
+import { extract } from 'tar';
 
 /**
  * Convert a Buffer to a Node.js Readable stream
@@ -70,27 +71,17 @@ export async function extractTarGz(
   outputDir: string,
   onEntry?: (entry: { path: string; size: number }) => void
 ): Promise<void> {
-  // This is a helper that requires the 'tar' package
-  // Users can implement their own extraction logic or use this helper
-  let tar: any;
-  try {
-    // @ts-ignore - tar is an optional peer dependency
-    tar = await import('tar');
-  } catch (e) {
-    throw new Error('The "tar" package is required for extractTarGz. Install it with: npm install tar');
-  }
-
   const stream = bufferToStream(buffer);
   const gunzip = createGunzipStream();
   
   return new Promise((resolve, reject) => {
     stream
       .pipe(gunzip)
-      .pipe(tar.extract({
+      .pipe(extract({
         cwd: outputDir,
         onentry: onEntry ? (entry: any) => {
           onEntry({ path: entry.path, size: entry.size });
-        } : undefined
+        } : undefined,
       }))
       .on('finish', resolve)
       .on('error', reject);
