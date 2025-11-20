@@ -84,13 +84,15 @@ jobs:
         if: matrix.settings.host != 'windows-latest'
         run: ${{ matrix.settings.build }}
         env:
-          NAPI_TARGET: ' ${{ matrix.settings.target }} '
+          NAPI_TARGET: ' --target ${{ matrix.settings.target }} '
         shell: bash
         working-directory: packages/oras-client
 
       - name: Build (Windows - Git Bash)
         if: matrix.settings.host == 'windows-latest'
         run: ${{ matrix.settings.build }}
+        env:
+          NAPI_TARGET: ' --target ${{ matrix.settings.target }} '
         working-directory: packages\\oras-client
 
       - name: Upload artifact
