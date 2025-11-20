@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { OrasClient, AuthOptions, FileLayer, PushArtifactOptions, Platform, ManifestDescriptor } from '@oras/client';
+import { OrasClient, AuthOptions, FileLayer, PushArtifactOptions, Platform, ManifestDescriptor } from '@dfatwork-pkgs/oras-client';
 import * as fs from 'fs';
 import * as path from 'path';
 import chalk from 'chalk';

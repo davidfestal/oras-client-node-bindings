@@ -1,4 +1,4 @@
-# @oras/client
+# @dfatwork-pkgs/oras-client
 
 Complete Node.js/TypeScript bindings for the Rust [oci-client](https://github.com/oras-project/oci-client) library (v0.14), enabling full OCI Registry As Storage (ORAS) operations.
 
@@ -27,9 +27,9 @@ See [ARCHITECTURE.md](../../ARCHITECTURE.md) for detailed architecture documenta
 ## Installation
 
 ```bash
-npm install @oras/client
+npm install @dfatwork-pkgs/oras-client
 # or
-pnpm add @oras/client
+pnpm add @dfatwork-pkgs/oras-client
 ```
 
 ## Quick Start
@@ -37,7 +37,7 @@ pnpm add @oras/client
 ### High-Level API (Recommended)
 
 ```typescript
-import { OrasClient, FileLayer, PushArtifactOptions } from '@oras/client';
+import { OrasClient, FileLayer, PushArtifactOptions } from '@dfatwork-pkgs/oras-client';
 
 const client = new OrasClient(); // Use OrasClient(true) for insecure/HTTP
 

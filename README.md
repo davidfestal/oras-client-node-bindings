@@ -8,20 +8,20 @@ Node.js bindings for the Rust [oci-client](https://github.com/oras-project/oras-
 
 This monorepo contains two packages:
 
-### [@oras/client](./packages/oras-client) - Core Library
+### [@dfatwork-pkgs/oras-client](./packages/oras-client) - Core Library
 
 Pure Rust bindings + high-level TypeScript API for ORAS operations.
 
 **Install:**
 ```bash
-npm install @oras/client
+npm install @dfatwork-pkgs/oras-client
 # or
-pnpm add @oras/client
+pnpm add @dfatwork-pkgs/oras-client
 ```
 
 **Quick Start:**
 ```typescript
-import { OrasClient } from '@oras/client';
+import { OrasClient } from '@dfatwork-pkgs/oras-client';
 
 const client = new OrasClient();
 
@@ -37,15 +37,15 @@ await client.pullArtifact('localhost:5000/myapp:v1', './output');
 const layers = await client.pullArtifactStreams('localhost:5000/myapp:v1');
 ```
 
-### [@oras/cli](./packages/oras-cli) - Command-Line Interface
+### [@dfatwork-pkgs/oras-cli](./packages/oras-cli) - Command-Line Interface
 
 ORAS CLI implemented in TypeScript.
 
 **Install:**
 ```bash
-npm install -g @oras/cli
+npm install -g @dfatwork-pkgs/oras-cli
 # or
-pnpm add -g @oras/cli
+pnpm add -g @dfatwork-pkgs/oras-cli
 ```
 
 **Usage:**
@@ -132,10 +132,10 @@ This separation ensures:
 pnpm test
 
 # Run tests in watch mode
-pnpm --filter @oras/client test:watch
+pnpm --filter @dfatwork-pkgs/oras-client test:watch
 
 # Run e2e tests only
-pnpm --filter @oras/client test:e2e
+pnpm --filter @dfatwork-pkgs/oras-client test:e2e
 ```
 
 Tests automatically start a Zot registry in Podman for full integration testing.

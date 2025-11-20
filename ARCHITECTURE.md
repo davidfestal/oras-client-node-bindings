@@ -12,14 +12,14 @@ This project follows a **clean separation of concerns** architecture:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      CLI Tool (@oras/cli)                    │
+│                      CLI Tool (@dfatwork-pkgs/oras-cli)     │
 │                  packages/oras-cli/src/cli.ts                │
 │  Commands: push, pull, manifest, copy, blob, etc.           │
 └────────────────────────┬────────────────────────────────────┘
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         TypeScript High-Level API (@oras/client)             │
+│         TypeScript High-Level API (@dfatwork-pkgs/oras-client)             │
 │         packages/oras-client/src/high-level.ts               │
 │                                                              │
 │  • pushArtifact()            • pullArtifact()               │
@@ -37,7 +37,7 @@ This project follows a **clean separation of concerns** architecture:
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         Pure Rust Bindings (@oras/client/native)             │
+│         Pure Rust Bindings (@dfatwork-pkgs/oras-client/native)             │
 │         packages/oras-client/src/lib.rs                      │
 │                                                              │
 │  • pullManifest()       • pushManifest()                    │
@@ -60,7 +60,7 @@ This project follows a **clean separation of concerns** architecture:
 ```
 oras-client-node-bindings/
 ├── packages/
-│   ├── oras-client/                 # @oras/client
+│   ├── oras-client/                 # @dfatwork-pkgs/oras-client
 │   │   ├── src/
 │   │   │   ├── lib.rs               # Pure Rust bindings
 │   │   │   ├── high-level.ts        # High-level TypeScript API
@@ -81,7 +81,7 @@ oras-client-node-bindings/
 │   │   ├── Cargo.toml               # Rust dependencies
 │   │   └── package.json
 │   │
-│   └── oras-cli/                    # @oras/cli
+│   └── oras-cli/                    # @dfatwork-pkgs/oras-cli
 │       ├── src/
 │       │   └── cli.ts               # CLI implementation
 │       ├── dist/
@@ -161,7 +161,7 @@ oras-client-node-bindings/
 
 4. **Stream Utilities**
    ```typescript
-   import { bufferToStream, isTarGz, extractTarGz } from '@oras/client';
+   import { bufferToStream, isTarGz, extractTarGz } from '@dfatwork-pkgs/oras-client';
    
    // Check if layer is tar.gz
    if (isTarGz(layer.mediaType)) {
@@ -220,7 +220,7 @@ oras-client-node-bindings/
 
 ```json
 {
-  "name": "@oras/client",
+  "name": "@dfatwork-pkgs/oras-client",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -237,13 +237,13 @@ oras-client-node-bindings/
 Users can import:
 ```typescript
 // High-level API (recommended)
-import { OrasClient } from '@oras/client';
+import { OrasClient } from '@dfatwork-pkgs/oras-client';
 
 // Low-level bindings (advanced)
-import { OrasClient as NativeClient } from '@oras/client/native';
+import { OrasClient as NativeClient } from '@dfatwork-pkgs/oras-client/native';
 
 // Stream utilities
-import { bufferToStream, isTarGz, extractTarGz } from '@oras/client';
+import { bufferToStream, isTarGz, extractTarGz } from '@dfatwork-pkgs/oras-client';
 ```
 
 ## CLI Tool
@@ -251,7 +251,7 @@ import { bufferToStream, isTarGz, extractTarGz } from '@oras/client';
 The CLI is built entirely on the TypeScript high-level API:
 
 ```typescript
-import { OrasClient } from '@oras/client';
+import { OrasClient } from '@dfatwork-pkgs/oras-client';
 
 const client = new OrasClient(options.insecure);
 await client.pushArtifact(ref, files, options, auth);

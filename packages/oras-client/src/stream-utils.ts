@@ -52,7 +52,7 @@ export function isTar(mediaType: string): boolean {
  * 
  * @example
  * ```typescript
- * import { extractTarGz } from '@oras/client/stream-utils';
+ * import { extractTarGz } from '@dfatwork-pkgs/oras-client/stream-utils';
  * import * as tar from 'tar';
  * 
  * const layers = await client.pullArtifactStreams('localhost:5000/app:v1');

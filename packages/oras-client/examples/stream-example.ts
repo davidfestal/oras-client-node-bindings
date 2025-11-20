@@ -7,7 +7,7 @@
  * 3. Extracting tar.gz layers on-the-fly
  */
 
-import { OrasClient, bufferToStream, getLayerStream, isTarGz, extractTarGz } from '@oras/client';
+import { OrasClient, bufferToStream, getLayerStream, isTarGz, extractTarGz } from '../src/index';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 

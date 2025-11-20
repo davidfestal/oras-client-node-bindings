@@ -4,7 +4,7 @@ import * as net from 'net';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import { OrasClient } from '@oras/client';
+import { OrasClient } from '../src/index';
 
 // Test configuration
 const DEFAULT_PORT = 5001;

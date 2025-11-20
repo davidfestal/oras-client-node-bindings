@@ -1,6 +1,6 @@
 # ORAS Client Examples
 
-This directory contains examples demonstrating various features of the `@oras/client` library.
+This directory contains examples demonstrating various features of the `@dfatwork-pkgs/oras-client` library.
 
 ## Examples
 
@@ -45,7 +45,7 @@ for (const layer of layers) {
 ### Tar.gz Extraction
 
 ```typescript
-import { extractTarGz, isTarGz } from '@oras/client';
+import { extractTarGz, isTarGz } from '@dfatwork-pkgs/oras-client';
 
 const layers = await client.pullArtifactStreams(imageRef);
 
@@ -66,7 +66,7 @@ npm install tar @types/tar
 ### Custom Stream Processing
 
 ```typescript
-import { bufferToStream, getLayerStream } from '@oras/client';
+import { bufferToStream, getLayerStream } from '@dfatwork-pkgs/oras-client';
 import * as zlib from 'zlib';
 import * as fs from 'fs';
 

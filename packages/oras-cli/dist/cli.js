@@ -38,7 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
-const client_1 = require("@oras/client");
+const oras_client_1 = require("@dfatwork-pkgs/oras-client");
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const chalk_1 = __importDefault(require("chalk"));
@@ -54,7 +54,7 @@ function getAuth(username, password) {
 }
 // Helper to create client
 function createClient(insecure = false) {
-    return new client_1.OrasClient(insecure);
+    return new oras_client_1.OrasClient(insecure);
 }
 // ===== PUSH Command =====
 program
