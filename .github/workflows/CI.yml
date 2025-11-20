@@ -79,11 +79,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       
-      - name: Build
+      - name: Build (Unix)
+        if: matrix.settings.host != 'windows-latest'
         run: ${{ matrix.settings.build }}
         shell: bash
         working-directory: packages/oras-client
-      
+
+      - name: Build (Windows - Git Bash)
+        if: matrix.settings.host == 'windows-latest'
+        run: ${{ matrix.settings.build }}
+        shell: 'C:\Program Files\Git\bin\bash.exe -lc'
+        working-directory: packages/oras-client
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
