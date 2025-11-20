@@ -28,7 +28,7 @@ jobs:
             target: aarch64-apple-darwin
             build: |
               rustup target add aarch64-apple-darwin
-              pnpm --filter @dfatwork-pkgs/oras-client build --target aarch64-apple-darwin
+              pnpm --filter @dfatwork-pkgs/oras-client build
           
           # Windows x64 - covers most Windows users
           - host: windows-latest
@@ -46,7 +46,7 @@ jobs:
             build: |-
               set -e &&
               rustup target add aarch64-unknown-linux-gnu &&
-              pnpm --filter @dfatwork-pkgs/oras-client build --target aarch64-unknown-linux-gnu
+              pnpm --filter @dfatwork-pkgs/oras-client build
 
     name: Build - ${{ matrix.settings.target }}
     runs-on: ${{ matrix.settings.host }}
@@ -83,6 +83,8 @@ jobs:
       - name: Build (Unix)
         if: matrix.settings.host != 'windows-latest'
         run: ${{ matrix.settings.build }}
+        env:
+          NAPI_TARGET: ' ${{ matrix.settings.target }} '
         shell: bash
         working-directory: packages/oras-client
 
@@ -90,7 +92,7 @@ jobs:
         if: matrix.settings.host == 'windows-latest'
         run: ${{ matrix.settings.build }}
         working-directory: packages\\oras-client
-        
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

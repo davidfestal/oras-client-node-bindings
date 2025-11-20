@@ -31,8 +31,8 @@
     }
   },
   "scripts": {
-    "build:native": "napi build --platform --release && npm run move-native",
-    "build:native:debug": "napi build --platform && npm run move-native",
+    "build:native": "cross-env-shell \"napi build --platform --release ${NAPI_TARGET}\" && npm run move-native",
+    "build:native:debug": "cross-env-shell \"napi build --platform ${NAPI_TARGET}\" && npm run move-native",
     "move-native": "shx mkdir -p src/generated && shx ls \"*.(js|d.ts|node)\" && shx mv -f index.js index.d.ts *.node src/generated/",
     "build:ts": "tsc",
     "copy-generated": "shx mkdir -p dist/generated && shx ls src/generated/ && shx cp -f src/generated/*.js src/generated/*.d.ts src/generated/*.node dist/generated/",
