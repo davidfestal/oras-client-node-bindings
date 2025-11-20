@@ -204,7 +204,7 @@ The CI workflow automatically publishes to npm on pushes to `main` branch. Set u
 
 ## 📄 License
 
-MIT
+Apache-2.0
 
 ## 🔗 Links
 

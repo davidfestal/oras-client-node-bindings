@@ -255,7 +255,7 @@ See [`examples/ts-app/`](./examples/ts-app/) for a comprehensive demonstration o
 
 ## License
 
-MIT
+Apache-2.0
 
 ## Contributing
 
