@@ -1,0 +1,44 @@
+{
+  "name": "@dfatwork-pkgs/oras-cli",
+  "version": "0.1.0",
+  "description": "CLI for ORAS (OCI Registry As Storage)",
+  "bin": {
+    "oras-js": "./dist/cli.js"
+  },
+  "main": "dist/cli.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "@dfatwork-pkgs/oras-client": "workspace:*",
+    "chalk": "^4.1.2",
+    "commander": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "keywords": [
+    "oras",
+    "cli",
+    "oci",
+    "registry",
+    "artifacts"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfestal/oras-client-node-bindings",
+    "directory": "packages/oras-cli"
+  }
+}
+

@@ -1,0 +1,176 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DEBUG: napi:*
+  APP_NAME: oras-client-node-bindings
+  MACOSX_DEPLOYMENT_TARGET: '10.13'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        settings:
+          # macOS Intel (x86_64) - covers older Macs
+          - host: macos-latest
+            target: x86_64-apple-darwin
+            build: pnpm --filter @dfatwork-pkgs/oras-client build
+          
+          # macOS Apple Silicon (ARM64) - covers M1/M2/M3 Macs
+          - host: macos-latest
+            target: aarch64-apple-darwin
+            build: |
+              rustup target add aarch64-apple-darwin
+              pnpm --filter @dfatwork-pkgs/oras-client build --target aarch64-apple-darwin
+          
+          # Windows x64 - covers most Windows users
+          - host: windows-latest
+            target: x86_64-pc-windows-msvc
+            build: pnpm --filter @dfatwork-pkgs/oras-client build
+          
+          # Linux x64 (glibc) - covers most Linux distros (Ubuntu, Debian, Fedora, etc.)
+          - host: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            build: pnpm --filter @dfatwork-pkgs/oras-client build
+          
+          # Linux ARM64 - covers ARM servers, Raspberry Pi 4+, AWS Graviton
+          - host: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            build: |-
+              set -e &&
+              rustup target add aarch64-unknown-linux-gnu &&
+              pnpm --filter @dfatwork-pkgs/oras-client build --target aarch64-unknown-linux-gnu
+
+    name: Build - ${{ matrix.settings.target }}
+    runs-on: ${{ matrix.settings.host }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.settings.target }}
+      
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            packages/oras-client/target/
+          key: ${{ matrix.settings.target }}-cargo-${{ matrix.settings.host }}
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build
+        run: ${{ matrix.settings.build }}
+        shell: bash
+        working-directory: packages/oras-client
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bindings-${{ matrix.settings.target }}
+          path: packages/oras-client/*.node
+          if-no-files-found: error
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build
+        run: pnpm build
+      
+      - name: Test
+        run: pnpm test
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: packages/oras-client/artifacts
+      
+      - name: Move artifacts
+        run: pnpm --filter @dfatwork-pkgs/oras-client artifacts
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build TypeScript
+        run: pnpm build:ts --filter @dfatwork-pkgs/oras-client
+      
+      - name: Publish @dfatwork-pkgs/oras-client
+        run: |
+          cd packages/oras-client
+          pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Publish @dfatwork-pkgs/oras-cli
+        run: |
+          cd packages/oras-cli
+          pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

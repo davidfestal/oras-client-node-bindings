@@ -1,0 +1,78 @@
+{
+  "name": "@dfatwork-pkgs/oras-client",
+  "version": "0.1.0",
+  "description": "Node.js bindings for OCI Registry As Storage (ORAS) - Rust oci-client library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "src/generated/**/*.js",
+    "src/generated/**/*.d.ts",
+    "!dist/**/*.map",
+    "!src/generated/**/*.node"
+  ],
+  "napi": {
+    "name": "oras-client-node-bindings",
+    "triples": {
+      "defaults": false,
+      "additional": [
+        "x86_64-apple-darwin",
+        "aarch64-apple-darwin",
+        "x86_64-pc-windows-msvc",
+        "x86_64-unknown-linux-gnu",
+        "aarch64-unknown-linux-gnu"
+      ]
+    }
+  },
+  "scripts": {
+    "build:native": "napi build --platform --release && npm run move-native",
+    "build:native:debug": "napi build --platform && npm run move-native",
+    "move-native": "mkdir -p src/generated dist && mv -f index.js index.d.ts src/generated/ 2>/dev/null || true && cp -f *.node src/generated/ 2>/dev/null || true && mv -f *.node dist/ 2>/dev/null || true",
+    "build:ts": "tsc && npm run copy-generated",
+    "copy-generated": "mkdir -p dist/generated && cp -f src/generated/*.js src/generated/*.d.ts dist/generated/ 2>/dev/null || true && cp -f dist/*.node dist/generated/ 2>/dev/null || true",
+    "build": "npm run build:native && npm run build:ts",
+    "build:debug": "npm run build:native:debug && npm run build:ts",
+    "clean": "rm -rf dist lib *.node",
+    "prepublishOnly": "npm run clean && npm run build && napi prepublish -t npm",
+    "artifacts": "napi artifacts",
+    "test": "jest",
+    "test:e2e": "jest test/e2e.test.ts",
+    "test:watch": "jest --watch",
+    "version": "napi version"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^18.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "keywords": [
+    "oras",
+    "oci",
+    "registry",
+    "artifacts",
+    "napi",
+    "rust",
+    "bindings"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfestal/oras-client-node-bindings",
+    "directory": "packages/oras-client"
+  }
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "oras-client-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Monorepo for ORAS Node.js client and CLI",
+  "scripts": {
+    "build": "pnpm --filter @dfatwork-pkgs/oras-client build && pnpm --filter @dfatwork-pkgs/oras-cli build",
+    "build:client": "pnpm --filter @dfatwork-pkgs/oras-client build",
+    "build:cli": "pnpm --filter @dfatwork-pkgs/oras-cli build",
+    "test": "pnpm --filter @dfatwork-pkgs/oras-client test",
+    "clean": "pnpm --filter @dfatwork-pkgs/oras-client clean && pnpm --filter @dfatwork-pkgs/oras-cli clean",
+    "lint": "echo 'Linting not configured yet'"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfestal/oras-client-node-bindings"
+  },
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd"
+}

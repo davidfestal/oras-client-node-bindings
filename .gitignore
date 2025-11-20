@@ -1,0 +1,48 @@
+# Build output
+/dist/
+/lib/
+*.node
+
+# Keep generated source files in src/generated/
+!/src/generated/
+!/src/generated/*.js
+!/src/generated/*.d.ts
+# But not .node files in src/generated/
+/src/generated/*.node
+
+# Rust
+/target/
+Cargo.lock
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Test
+/test/test-artifacts/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temp
+tmp/
+temp/
+

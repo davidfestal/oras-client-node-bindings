@@ -1,0 +1,31 @@
+# Source files (don't publish)
+/src/
+/test/
+/cli/
+/examples/
+*.md
+!README.md
+
+# Config files
+tsconfig.json
+jest.config.js
+.github/
+.cargo/
+
+# Rust
+Cargo.toml
+Cargo.lock
+/target/
+
+# Build scripts
+test-registries.sh
+test-cli.js
+test_usage.js
+
+# Development
+.vscode/
+.idea/
+*.swp
+
+# Only publish dist/
+!dist/
