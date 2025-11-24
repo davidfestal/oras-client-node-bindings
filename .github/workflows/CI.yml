@@ -172,6 +172,7 @@ jobs:
         working-directory: packages/oras-client
         run: |
           mkdir -p npm
+          pnpm napi create-npm-dirs --npm-dir npm
           pnpm artifacts
       
       - name: Build TypeScript
