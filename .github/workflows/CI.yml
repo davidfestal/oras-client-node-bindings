@@ -171,7 +171,7 @@ jobs:
       - name: Move artifacts
         working-directory: packages/oras-client
         run: |
-          pnpm napi prepublish -t npm
+          mkdir -p npm
           pnpm artifacts
       
       - name: Build TypeScript
