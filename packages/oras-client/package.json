@@ -18,21 +18,18 @@
     "!src/generated/**/*.node"
   ],
   "napi": {
-    "name": "oras-client-node-bindings",
-    "triples": {
-      "defaults": false,
-      "additional": [
-        "x86_64-apple-darwin",
-        "aarch64-apple-darwin",
-        "x86_64-pc-windows-msvc",
-        "x86_64-unknown-linux-gnu",
-        "aarch64-unknown-linux-gnu"
-      ]
-    }
+    "binaryName": "oras-client-node-bindings",
+    "targets": [
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin",
+      "x86_64-pc-windows-msvc",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu"
+    ]
   },
   "scripts": {
-    "build:native": "cross-env-shell \"napi build --platform --release ${NAPI_TARGET} src/generated/\"",
-    "build:native:debug": "cross-env-shell \"napi build --platform ${NAPI_TARGET} src/generated/\"",
+    "build:native": "cross-env-shell \"napi build --platform --release ${NAPI_TARGET} -o src/generated/\"",
+    "build:native:debug": "cross-env-shell \"napi build --platform ${NAPI_TARGET} -o src/generated/\"",
     "build:ts": "tsc",
     "copy-generated": "shx mkdir -p dist/generated && shx ls src/generated/ && shx cp -f src/generated/*.js src/generated/*.d.ts src/generated/*.node dist/generated/",
     "build": "npm run build:native && npm run build:ts && npm run copy-generated",
