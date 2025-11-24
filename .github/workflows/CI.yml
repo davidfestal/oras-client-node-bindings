@@ -185,6 +185,7 @@ jobs:
           pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Publish @dfatwork-pkgs/oras-cli
         working-directory: packages/oras-cli
