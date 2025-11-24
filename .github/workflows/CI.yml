@@ -161,6 +161,9 @@ jobs:
         with:
           path: packages/oras-client/artifacts
           merge-multiple: true
+   
+      - name: List artifacts
+        run: ls -R packages/oras-client
       
       - name: Install dependencies
         run: pnpm install
