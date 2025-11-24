@@ -169,21 +169,25 @@ jobs:
         run: pnpm install
         
       - name: Move artifacts
-        run: pnpm --filter @dfatwork-pkgs/oras-client artifacts
+        working-directory: packages/oras-client
+        run: |
+          pnpm napi prepublish -t npm
+          pnpm artifacts
       
       - name: Build TypeScript
-        run: pnpm build:ts --filter @dfatwork-pkgs/oras-client
+        working-directory: packages/oras-client
+        run: pnpm build:ts
       
       - name: Publish @dfatwork-pkgs/oras-client
+        working-directory: packages/oras-client
         run: |
-          cd packages/oras-client
           pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Publish @dfatwork-pkgs/oras-cli
+        working-directory: packages/oras-cli
         run: |
-          cd packages/oras-cli
           pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
